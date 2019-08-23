@@ -167,9 +167,8 @@ $Link->query($Link, "SET NAMES UTF8");
 					<?php $sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
 						$result = $Link->query($sql);
 						for ($i=0; $i < 7; $i++) { 
-							if ($row = $result->fetch_assoc()) {
+							if ($row = mysqli_fetch_assoc($result)) {
 								echo "OK";
-								echo $row;
 								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 							}
 						}
