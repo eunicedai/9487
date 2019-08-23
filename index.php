@@ -15,23 +15,10 @@ $username = $url["user"];
 $password = $url["pass"];
 $db = substr($url["path"], 1);
 
-$conn = new mysqli($server, $username, $password, $db);
-
 $Link = new mysqli($server, $username, $password, $db);
 
 if(!$Link){
 	echo "連接失敗";
-}else{
-	echo "SUCCESS";
-	$sql = "SELECT P_NAME FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
-	if($result = $Link->query($sql)) {
-		while ($row = $result->fetch_assoc())
-		{
-			foreach($row as $value) echo "<td>$value</td>";
-		}
-	}else{
-		echo "hmmm";
-	}
 }
 	
 $Link->query($Link, "SET NAMES UTF8");
@@ -178,9 +165,9 @@ $Link->query($Link, "SET NAMES UTF8");
 				</div>
 				<div class="main-data">
 					<?php $sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
-						$result = mysqli_query($Link,$sql);
+						$result = $Link->query($sql);
 						for ($i=0; $i < 7; $i++) { 
-							if ($row = mysqli_fetch_assoc($result)) {
+							if ($row = $result->fetch_assoc()) {
 								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 							}
 						}
