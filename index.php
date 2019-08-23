@@ -25,7 +25,7 @@ if(!$Link){
 	if($result = $Link->query($sql)) {
 		echo $result;
 	} else {
-		throw new Exception($conn->error);
+		throw new Exception($Link->error);
 	}
 }
 	
