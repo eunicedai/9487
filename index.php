@@ -17,8 +17,12 @@ $db = substr($url["heroku_c89901fa5cd0d96"], 1);
 
 $Link = new mysqli($server, $username, $password, $db);
 
-if(!$Link)
+if(!$Link){
 	echo "連接失敗";
+}else{
+	echo "SUCCESS";
+}
+	
 $Link->query($Link, "SET NAMES UTF8");
 
 ?>
@@ -38,8 +42,8 @@ $Link->query($Link, "SET NAMES UTF8");
 			if(isset($_SESSION["ID"]))
 			{
 				$UID = $_SESSION["ID"];
-				$result = $Link->query($Link,"SELECT U_MONEY FROM user WHERE U_ID = '$UID'");
-				$row = $Link->fetch_assoc($result);
+				$result = mysqli_query($Link,"SELECT U_MONEY FROM user WHERE U_ID = '$UID'");
+				$row = mysqli_fetch_assoc($result);
 
 				echo "<a href='user.php' class='lid-member'>".$UID."</a>";
 				echo "<a href='post.php' class='lid-member'>我要刊登</a>";
@@ -55,9 +59,9 @@ $Link->query($Link, "SET NAMES UTF8");
 				$id = $_POST["id"];
 				$pwd = $_POST["pwd"];
 	
-				$result = $Link->query($Link,"SELECT * FROM user");
+				$result = mysqli_query($Link,"SELECT * FROM user");
 
-				while($row = $Link->fetch_assoc($result)){
+				while($row = mysqli_fetch_assoc($result)){
 					if($row["U_ID"] == $id)
 					{
 						if($row["U_PW"] == $pwd){
@@ -163,9 +167,9 @@ $Link->query($Link, "SET NAMES UTF8");
 				</div>
 				<div class="main-data">
 					<?php $sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
-						$result = $Link->query($Link,$sql);
+						$result = mysqli_query($Link,$sql);
 						for ($i=0; $i < 7; $i++) { 
-							if ($row = $Link->fetch_assoc($result)) {
+							if ($row = mysqli_fetch_assoc($result)) {
 								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 							}
 						}
@@ -177,11 +181,11 @@ $Link->query($Link, "SET NAMES UTF8");
 					</div>
 					<?php
 						$sql2 = "SELECT Seller_ID, SUM(P_Price*P_SoldAmount) FROM product WHERE P_Game = '新楓之谷' GROUP BY Seller_ID ORDER BY SUM(P_Price*P_SoldAmount) DESC LIMIT 3";
-						$result2 = $Link->query($Link, $sql2);
+						$result2 = mysqli_query($Link, $sql2);
 					?>
 					<?php
 						$i = 1;
-						while ($row2 = $Link->fetch_assoc($result2)) {
+						while ($row2 = mysqli_fetch_assoc($result2)) {
 								 ?>
 							<div class="charts-data">
 								<p><?php echo $i;?>.<?php echo $row2["Seller_ID"]; ?></p>
@@ -219,9 +223,9 @@ $Link->query($Link, "SET NAMES UTF8");
 				<div class="main-data">
 					<?php
 						$sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='跑跑卡丁車' AND P_Inv > 0";
-						$result = $Link->query($Link,$sql);
+						$result = mysqli_query($Link,$sql);
 						for ($i=0; $i < 7; $i++) { 
-							if($row = $Link->fetch_assoc($result)) {
+							if($row = mysqli_fetch_assoc($result)) {
 								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 							}
 						}
@@ -233,11 +237,11 @@ $Link->query($Link, "SET NAMES UTF8");
 					</div>
 					<?php
 						$sql2 = "SELECT Seller_ID, SUM(P_Price*P_SoldAmount) FROM product WHERE P_Game = '跑跑卡丁車' GROUP BY Seller_ID ORDER BY SUM(P_Price*P_SoldAmount) DESC LIMIT 3";
-						$result2 = $Link->query($Link, $sql2);
+						$result2 = mysqli_query($Link, $sql2);
 					?>
 					<?php
 						$i = 1;
-						while ($row2 = $Link->fetch_assoc($result2)) {
+						while ($row2 = mysqli_fetch_assoc($result2)) {
 								 ?>
 							<div class="charts-data">
 								<p><?php echo $i;?>.<?php echo $row2["Seller_ID"]; ?></p>
@@ -275,9 +279,9 @@ $Link->query($Link, "SET NAMES UTF8");
 				<div class="main-data">
 				<?php
 					$sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='爆爆王' AND P_Inv > 0";
-					$result = $Link->query($Link,$sql);
+					$result = mysqli_query($Link,$sql);
 					for ($i=0; $i < 7; $i++) { 
-				 	 if($row = $Link->fetch_assoc($result)){
+				 	 if($row = mysqli_fetch_assoc($result)){
 				 	 	echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 				 	 } 	 	
 					}					
@@ -289,11 +293,11 @@ $Link->query($Link, "SET NAMES UTF8");
 					</div>
 					<?php
 						$sql2 = "SELECT Seller_ID, SUM(P_Price*P_SoldAmount) FROM product WHERE P_Game = '爆爆王' GROUP BY Seller_ID ORDER BY SUM(P_Price*P_SoldAmount) DESC LIMIT 3";
-						$result2 = $Link->query($Link, $sql2);
+						$result2 = mysqli_query($Link, $sql2);
 					?>
 					<?php
 						$i = 1;
-						while ($row2 = $Link->fetch_assoc($result2)) {
+						while ($row2 = mysqli_fetch_assoc($result2)) {
 								 ?>
 							<div class="charts-data">
 								<p><?php echo $i;?>.<?php echo $row2["Seller_ID"]; ?></p>
