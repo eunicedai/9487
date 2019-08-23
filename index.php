@@ -21,11 +21,11 @@ if(!$Link){
 	echo "連接失敗";
 }else{
 	echo "SUCCESS";
-	$sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
+	$sql = "SELECT P_NAME FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
 	if($result = $Link->query($sql)) {
-		echo $result;
-	} else {
-		throw new Exception($Link->error);
+		foreach($result as $row) {
+			echo "$row";
+		}
 	}
 }
 	
