@@ -167,10 +167,10 @@ $Link->query($Link, "SET NAMES UTF8");
 				</div>
 				<div class="main-data">
 					<?php $sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
-						$result = mysqli_query($Link,$sql);
+						$result = $Link->query($sql);
 						for ($i=0; $i < 7; $i++) { 
-							if ($row = mysqli_fetch_assoc($result)) {
-								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
+							if ($row = $Link->fetch_assoc($result)) {
+								echo "<a href='product.php?&p_code=$row[P_Code]'>".$Link->real_escape_string($row["P_NAME"])."</a><br/>";
 							}
 						}
 						?>
