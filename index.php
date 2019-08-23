@@ -23,8 +23,9 @@ if(!$Link){
 	echo "SUCCESS";
 	$sql = "SELECT P_NAME FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
 	if($result = $Link->query($sql)) {
-		foreach($result as $row) {
-			echo "$row";
+		while ($row = $result->fetch_assoc())
+		{
+			foreach($row as $value) echo "<td>$value</td>";
 		}
 	}
 }
