@@ -13,7 +13,7 @@ if (isset($_GET["id"]))
 
 	$isUsed = false;
 
-	$Link = mysqli_connect('localhost','phpholyshit','tingting123','9487');
+	$Link = mysqli_connect('us-cdbr-iron-east-02.cleardb.net','bf54940f57b6d8','eabd5f32','heroku_c89901fa5cd0d96');
 	if(!$Link)
 		echo "連接失敗";
 

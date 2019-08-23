@@ -8,20 +8,11 @@ if(isset($_GET["logout"]))
 	unset($_SESSION["ID"]);
 	header("Location:index.php");
 }
-// $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-// $server = $url["host"];
-// $username = $url["user"];
-// $password = $url["pass"];
-// $db = substr($url["path"], 1);
-
-$Link = mysqli_connect("us-cdbr-iron-east-02.cleardb.net", "bf54940f57b6d8", "eabd5f32", "heroku_c89901fa5cd0d96");
-
-if(!$Link){
-	echo "連接失敗";
-}
-	
-$Link->query($Link, "SET NAMES UTF8");
+$Link = mysqli_connect('us-cdbr-iron-east-02.cleardb.net','bf54940f57b6d8','eabd5f32','heroku_c89901fa5cd0d96');
+	if(!$Link)
+		echo "連接失敗";
+	mysqli_query($Link, "SET NAMES UTF8");
 
 ?>
 <head>
@@ -165,10 +156,9 @@ $Link->query($Link, "SET NAMES UTF8");
 				</div>
 				<div class="main-data">
 					<?php $sql = "SELECT P_NAME,P_Code FROM product WHERE P_Game='新楓之谷' AND P_Inv > 0";
-						$result = $Link->query($sql);
+						$result = mysqli_query($Link,$sql);
 						for ($i=0; $i < 7; $i++) { 
 							if ($row = mysqli_fetch_assoc($result)) {
-								echo "OK";
 								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 							}
 						}
