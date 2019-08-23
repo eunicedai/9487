@@ -168,6 +168,8 @@ $Link->query($Link, "SET NAMES UTF8");
 						$result = $Link->query($sql);
 						for ($i=0; $i < 7; $i++) { 
 							if ($row = $result->fetch_assoc()) {
+								echo "OK";
+								echo $row;
 								echo "<a href='product.php?&p_code=$row[P_Code]'>".$row["P_NAME"]."</a><br/>";
 							}
 						}
