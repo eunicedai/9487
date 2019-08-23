@@ -8,11 +8,18 @@ if(isset($_GET["logout"]))
 	unset($_SESSION["ID"]);
 	header("Location:index.php");
 }
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$Link = mysqli_connect('localhost','phpholyshit','tingting123','9487');
-	if(!$Link)
-		echo "連接失敗";
-	mysqli_query($Link, "SET NAMES UTF8");
+$server = $url["us-cdbr-iron-east-02.cleardb.net"];
+$username = $url["bf54940f57b6d8"];
+$password = $url["eabd5f32"];
+$db = substr($url["heroku_c89901fa5cd0d96"], 1);
+
+$Link = new mysqli($server, $username, $password, $db);
+
+if(!$Link)
+	echo "連接失敗";
+mysqli_query($Link, "SET NAMES UTF8");
 
 ?>
 <head>
